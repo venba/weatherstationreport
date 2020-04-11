@@ -89,7 +89,7 @@ public class ClimateControllerTest {
         final ModelAndView result = mockMvc.perform(request).andExpect(status().isOk()).andReturn().getModelAndView();
 
         // assert the view name
-        assertEquals(result.getViewName(), "index");
+        assertEquals("index :: searchRequestErrorState",result.getViewName());
         final List<FieldError> errors = (List<FieldError>) result.getModelMap().get("errors");
         assertEquals(2, errors.size(), "Received 2 errors");
     }
@@ -104,7 +104,7 @@ public class ClimateControllerTest {
         final ModelAndView result = mockMvc.perform(request).andExpect(status().isOk()).andReturn().getModelAndView();
 
         // assert the view name
-        assertEquals(result.getViewName(), "index");
+        assertEquals("index :: searchRequestErrorState",result.getViewName());
         // assert the error messages
         final List<FieldError> errors = (List<FieldError>) result.getModelMap().get("errors");
         assertEquals(1, errors.size(), "Received 1 error");
@@ -122,7 +122,7 @@ public class ClimateControllerTest {
         final ModelAndView result = mockMvc.perform(request).andExpect(status().isOk()).andReturn().getModelAndView();
 
         // assert the view name
-        assertEquals(result.getViewName(), "index");
+        assertEquals("index :: searchRequestErrorState",result.getViewName());
         // assert the error messages
         final List<FieldError> errors = (List<FieldError>) result.getModelMap().get("errors");
         assertEquals(1, errors.size(), "Received 1 error");
@@ -155,7 +155,7 @@ public class ClimateControllerTest {
         final ModelAndView result = mockMvc.perform(request).andExpect(status().isOk()).andReturn().getModelAndView();
 
         // assert the view name
-        assertEquals(result.getViewName(), "index");
+        assertEquals("index :: searchRequestErrorState",result.getViewName());
         // assert the error messages
         final List<FieldError> errors = (List<FieldError>) result.getModelMap().get("errors");
         assertEquals(1, errors.size(), "Received 1 error");
