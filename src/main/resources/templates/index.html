@@ -52,33 +52,33 @@
         <p th:each="err : ${errors}" th:text="${err.code}"></p>    
     </div>
      <!-- Stations block -->
-        <table class="table table-striped" id="stations" th:fragment="searchDetails" >
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Station</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Mean Temprature</th>
-                </tr>
-            </thead>
-            
-            <tbody>
-            <tr>
-            <td colspan="4"><span th:text="${#lists.size(stations)}">[Number of Elements]</span></td>
-            </tr>
-                <tr th:each="station, iStat: ${stations}">
-                    <th scope="row" th:text="${iStat.index + 1}" />
-                    <td th:text="${station.name}" />
-                    <td th:text="${#dates.format(station.date, 'dd-MMM-yyyy')}"></td>
-                    <td>
-                        <a th:href="@{/station/{id}(id=${station.id})}">
-                        <span th:if="${station.mean_temp!=null}" th:text="${station.mean_temp}"></span>
-                        <span th:if="${station.mean_temp==null}">N/A</span>
-                    </a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+	<table class="table table-striped" id="stations"
+		th:fragment="searchDetails">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Station</th>
+				<th scope="col">Date</th>
+				<th scope="col">Mean Temprature</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr th:each="station, iStat: ${stations}">
+				<th scope="row" th:text="${iStat.index + 1}" />
+				<td th:text="${station.name}" />
+				<td th:text="${#dates.format(station.date, 'dd-MMM-yyyy')}"></td>
+				<td><a th:href="@{/station/{id}(id=${station.id})}"> <span
+						th:if="${station.mean_temp!=null}" th:text="${station.mean_temp}"></span>
+						<span th:if="${station.mean_temp==null}">N/A</span>
+				</a></td>
+			</tr>
+			<tr th:if="${#lists.isEmpty(stations)}">
+				<td colspan="4">No Records Found</td>
+			</tr>
+		</tbody>
+	</table>
+        
     <script  src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script type="text/javascript" th:src="@{/js/index.js}"></script>
 </body>

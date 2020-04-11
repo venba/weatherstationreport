@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.weatherstation.report.entity.Station;
 
 @Repository
-public interface StationRepository extends CrudRepository<Station, Long> {
+public interface StationRepository extends  CrudRepository<Station, Long> {
     @Override
     public List<Station> findAll();
 
