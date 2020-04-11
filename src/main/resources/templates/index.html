@@ -17,10 +17,7 @@
     </nav>
     <h2>Station information</h2>
     <p>You can find the list of stations readings here</p>    
-    <div class="alert alert-danger" th:if="${errors!=null}">
-        <p th:each="err : ${errors}" th:text="${err.code}"></p>    
-    </div>
-    <form action="/filter" method="POST" class="form" onsubmit="return onSubmit()" novalidate id="stations-list" th:object="${searchRequest}">
+    <form id="stations-list" th:object="${searchRequest}">
         <div class="card">
             <div class="card-body" th:if="${searchRequest!=null}">
                 <div class="row">
@@ -28,9 +25,8 @@
                         <label for="startDate" id="startDateLabel" class="col-form-label">Start Date: </label>
                     </div>
                     <div class="col-sm-10">
-                        <input type="date" th:field="${searchRequest.startDate}" placeholder="YYYY-MM-DD" maxlength="10" aria-describedby="startDateErrorMessage" />
+                        <input type="date" value="2018-04-01" th:field="${searchRequest.startDate}" placeholder="YYYY-MM-DD" maxlength="10" aria-describedby="startDateErrorMessage" />
                         <span id="startDateErrorMessage" class="form-error"></span>
-                        </span>
                     </div>
                 </div>
                 <div class="row">
@@ -38,18 +34,25 @@
                         <label for="endDate" id="endDateLabel" class="col-form-label ">End Date: </label>
                     </div>
                     <div class="col-sm-10 ">
-                        <input type="date" th:field="${searchRequest.endDate}" placeholder="YYYY-MM-DD" maxlength="10" aria-describedby="ErrorMessage" />
+                        <input type="date" value="2018-04-02" th:field="${searchRequest.endDate}" placeholder="YYYY-MM-DD" maxlength="10" aria-describedby="ErrorMessage" />
                         <span id="endDateErrorMessage" class="form-error"></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-6 offset-sm-2">
-                        <button type="submit" class="btn btn-primary btn-md">Apply Filter</button>
+                        <button type="button" onclick="onSubmit()" id="btnFilter" class="btn btn-primary btn-md">Apply Filter</button>
                     </div>
                 </div>
             </div>
         </div>
-        <table class="table table-striped">
+
+    </form>
+    
+      <div class="alert alert-danger" th:if="${errors!=null}" th:fragment="searchRequestErrorState">
+        <p th:each="err : ${errors}" th:text="${err.code}"></p>    
+    </div>
+     <!-- Stations block -->
+        <table class="table table-striped" id="stations" th:fragment="searchDetails" >
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -58,7 +61,11 @@
                     <th scope="col">Mean Temprature</th>
                 </tr>
             </thead>
+            
             <tbody>
+            <tr>
+            <td colspan="4"><span th:text="${#lists.size(stations)}">[Number of Elements]</span></td>
+            </tr>
                 <tr th:each="station, iStat: ${stations}">
                     <th scope="row" th:text="${iStat.index + 1}" />
                     <td th:text="${station.name}" />
@@ -72,7 +79,7 @@
                 </tr>
             </tbody>
         </table>
-    </form>
+    <script  src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script type="text/javascript" th:src="@{/js/index.js}"></script>
 </body>
 

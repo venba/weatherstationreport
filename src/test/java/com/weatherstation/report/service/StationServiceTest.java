@@ -16,6 +16,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.format.datetime.DateFormatter;
 import com.weatherstation.report.dto.StationDto;
 import com.weatherstation.report.entity.Station;
+import com.weatherstation.report.exception.SearchDateException;
 import com.weatherstation.report.repositories.StationRepository;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.sql.Date;
@@ -77,15 +78,9 @@ public class StationServiceTest {
     @Test
     public void Test_SearchAllStations_When_StartDate_LessThan_EndDate_ThrowsException() {
         
-         Throwable exception = assertThrows(IllegalArgumentException.class, () ->
+         Throwable exception = assertThrows(SearchDateException.class, () ->
           stationService.searchStations(200, 100));
           assertEquals("End date must be greater or equals to start date",
           exception.getMessage());
-         /*
-        try {
-            stationService.searchStations(200, 100);
-        } catch (final SearchDateException exp) {
-            assertNotNull(exp);
-        }*/
     }
 }

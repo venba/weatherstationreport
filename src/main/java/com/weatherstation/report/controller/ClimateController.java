@@ -49,18 +49,16 @@ public class ClimateController {
         logger.debug("is valid request? {}", result.hasErrors());
         if (result.hasErrors()) {
             logger.debug("request dates are not valid, {}", result.getAllErrors());
-            model.addAttribute("searchRequest", searchRequest);
             model.addAttribute("errors", result.getAllErrors());
-            return "index";
+            return "index :: searchRequestErrorState";
         }
         logger.debug("searching for the given dates {} to {}", searchRequest.getStartDate(),
                 searchRequest.getEndDate());
         final List<StationDto> stations = stationService.searchStations(searchRequest.getStartDate().getTime(),
                 searchRequest.getEndDate().getTime());
         logger.debug("search result count # {}", stations.size());
-        attribute.addFlashAttribute("searchRequest", searchRequest);
-        attribute.addFlashAttribute("stations", stations);
-        return "redirect:/result";
+        model.addAttribute("stations", stations);
+        return "index :: searchDetails";
     }
 
     @RequestMapping(value = "/result", method = RequestMethod.GET)
