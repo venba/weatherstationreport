@@ -42,3 +42,8 @@ function onSubmit() {
 		$("#stations").empty().append(data);
 	});
 }
+
+// reload the page to get initial data
+function onReset(){
+    window.location.href = window.location.href;
+}

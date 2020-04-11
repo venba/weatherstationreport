@@ -41,6 +41,7 @@
                 <div class="row">
                     <div class="col-sm-6 offset-sm-2">
                         <button type="button" onclick="onSubmit()" id="btnFilter" class="btn btn-primary btn-md">Apply Filter</button>
+                        <button type="button" onclick="onReset()" class="btn btn-secondary btn-md">Reset Filter</button>
                     </div>
                 </div>
             </div>
@@ -56,8 +57,7 @@
 		th:fragment="searchDetails">
 		<thead>
 			<tr>
-				<th scope="col">#</th>
-				<th scope="col">Station</th>
+				<th scope="col">Station Name</th>
 				<th scope="col">Date</th>
 				<th scope="col">Mean Temprature</th>
 			</tr>
@@ -65,7 +65,6 @@
 
 		<tbody>
 			<tr th:each="station, iStat: ${stations}">
-				<th scope="row" th:text="${iStat.index + 1}" />
 				<td th:text="${station.name}" />
 				<td th:text="${#dates.format(station.date, 'dd-MMM-yyyy')}"></td>
 				<td><a th:href="@{/station/{id}(id=${station.id})}"> <span
