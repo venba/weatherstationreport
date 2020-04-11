@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Home page</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+
+<body class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Home</li>
+        </ol>
+    </nav>
+    <h2>Station information</h2>
+    <p>You can find the list of stations readings here</p>    
+    <div class="alert alert-danger" th:if="${errors!=null}">
+        <p th:each="err : ${errors}" th:text="${err.code}"></p>    
+    </div>
+    <form action="/filter" method="POST" class="form" onsubmit="return onSubmit()" novalidate id="stations-list" th:object="${searchRequest}">
+        <div class="card">
+            <div class="card-body" th:if="${searchRequest!=null}">
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <label for="startDate" id="startDateLabel" class="col-form-label">Start Date: </label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input type="date" th:field="${searchRequest.startDate}" placeholder="YYYY-MM-DD" maxlength="10" aria-describedby="startDateErrorMessage" />
+                        <span id="startDateErrorMessage" class="form-error"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <label for="endDate" id="endDateLabel" class="col-form-label ">End Date: </label>
+                    </div>
+                    <div class="col-sm-10 ">
+                        <input type="date" th:field="${searchRequest.endDate}" placeholder="YYYY-MM-DD" maxlength="10" aria-describedby="ErrorMessage" />
+                        <span id="endDateErrorMessage" class="form-error"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 offset-sm-2">
+                        <button type="submit" class="btn btn-primary btn-md">Apply Filter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Station</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Mean Temprature</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="station, iStat: ${stations}">
+                    <th scope="row" th:text="${iStat.index + 1}" />
+                    <td th:text="${station.name}" />
+                    <td th:text="${#dates.format(station.date, 'dd-MMM-yyyy')}"></td>
+                    <td>
+                        <a th:href="@{/station/{id}(id=${station.id})}">
+                        <span th:if="${station.mean_temp!=null}" th:text="${station.mean_temp}"></span>
+                        <span th:if="${station.mean_temp==null}">N/A</span>
+                    </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <script type="text/javascript" th:src="@{/js/index.js}"></script>
+</body>
+
+</html>

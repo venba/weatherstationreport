@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Home page</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+</head>
+
+<body class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Station</li>
+        </ol>
+    </nav>
+    <h2>Station Details</h2>
+    <ul class="list-group" th:if="${station!=null}">
+        <li class="list-group-item">Station Name: <b><span th:text="${station.name}" /></b></li>
+        <li class="list-group-item">Province: <b><span th:text="${station.province}" /></b></li>
+        <li class="list-group-item">Date: <b><span th:text="${station.date}" /></b></li>
+        <li class="list-group-item">Mean Temp: <b><span th:text="${station.mean_temp}" /></b></li>
+        <li class="list-group-item">Highest Monthly Max Temp: <b><span th:text="${station.highest_Monthly_Maxi_Temp}" /></b></li>
+        <li class="list-group-item">Lowest Monthly Min Temp: <b><span th:text="${station.lowest_Monthly_Min_Temp}" /></b></li>
+    </ul>
+    <ul class="list-group" th:if="${station==null}">
+        <li class="list-group-item">Sorry, we cannot find the station. Pls verify the selected station.</li>
+    </ul>
+</body>
+
+</html>
